@@ -19,12 +19,7 @@
 
     <br />
     <br />
-
-    <div class="desc-header">
-      <h5>Description HTML</h5>
-      <div id="copy-desc">Copy</div>
-    </div>
-    <!-- <textarea id="innerTextOutput" rows="6" cols="30" readonly>...</textarea> -->
+    
     <Description />
 
     <div id="name-btns"></div>

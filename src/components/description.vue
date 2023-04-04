@@ -1,7 +1,11 @@
 <template>
-    <textarea rows="5" cols="50">
-        {{ desc }}
+    <div>
+        <h5>Description HTML</h5>
+        <button>Copy Desc</button>
+    </div>
+    <textarea rows="7" cols="150" v-model="desc">
     </textarea>
+    <div v-html="desc"></div>
 </template>
 
 <script>
@@ -12,11 +16,7 @@ export default {
     ],
     data () {
         return {
-        }
-    },
-    computed: {
-        desc () {
-            return `
+            desc: `
             <link rel="preconnect" href="https://fonts.gstatic.com">
             <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@300;600&display=swap" rel="stylesheet">
 
