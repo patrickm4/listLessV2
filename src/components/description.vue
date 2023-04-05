@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <h5>Description HTML</h5>
-        <button>Copy Desc</button>
+    <div class="desc-top-bar">
+        <h3>Description HTML</h3>
+        <button @click="copyURL" class="copy-btn">Copy Desc</button>
     </div>
     <textarea rows="7" cols="150" v-model="desc">
     </textarea>
@@ -38,6 +38,26 @@ export default {
             </div>
             `
         }
+    },
+    methods: {
+        async copyURL() {
+            try {
+                await navigator.clipboard.writeText(this.desc);
+                alert('Copied');
+            } catch($e) {
+                alert('Cannot copy');
+            }
+        }
     }
 }
 </script>
+
+<style>
+.desc-top-bar {
+    display:flex;
+    margin-bottom: 1rem;
+}
+.copy-btn {
+    margin-left: 1rem;
+}
+</style>
