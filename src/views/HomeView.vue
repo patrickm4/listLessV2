@@ -3,7 +3,6 @@
     <h3>Drag and drop card</h3>
     <button @click="clearDrop">Clear Drop</button>
     <input type="file" @change="drop" class="drop-input" ref="dropBox" />
-    <!-- <div class="drop-area" style="background-color: antiquewhite;border:2px dotted #fff; width: 100%; height: 20rem"></div> -->
     <div class="image-box">
     </div>
     <div class="filename"></div>
@@ -30,14 +29,20 @@
 
 <script>
 import Description from '../components/description.vue'
+import { mapStores } from 'pinia'
+import { useCardStore } from '@/stores/card.ts'
+
 
 export default {
   components: {
     Description
   },
+  computed: {
+    ...mapStores(useCardStore)
+  },
   methods: {
     drop (e) {
-      console.log("drop method ", e)
+      this.cardStore.selectCard(e.target.value)
     },
     clearDrop () {
       this.$refs.dropBox.value = ''
