@@ -22,29 +22,36 @@
     <br />
     <br />
     
-    <Description />
+    <Description 
+      v-if="cardName"
+      :cardname="cardName"
+    />
 
     <div id="name-btns"></div>
 </template>
 
 <script>
 import Description from '../components/description.vue'
-import { mapStores } from 'pinia'
-import { useCardStore } from '@/stores/card.ts'
-
 
 export default {
+  data () {
+    return {
+      cardName: ''
+    }
+  },
   components: {
     Description
   },
-  computed: {
-    ...mapStores(useCardStore)
-  },
   methods: {
     drop (e) {
-      this.cardStore.selectCard(e.target.value)
+      this.cardName = ''
+      setTimeout(() => {
+        const filePath = e.target.value.split('\\')
+        const file = filePath[filePath.length - 1]
+        this.cardName = file
+      },1)
     },
-    clearDrop () {
+    clearDrop () {  
       this.$refs.dropBox.value = ''
     }
   }

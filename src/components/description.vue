@@ -22,7 +22,7 @@ export default {
 
 
             <div style="display:flex; justify-content: center; align-items: center; background-color: rgba(0,0,0,0.175); padding: 10px 15px;">
-            <div style="font-size: 16pt; font-weight:600; font-family: 'Dosis', sans-serif; width: 80%; overflow-wrap: break-word;">${this.cardname || 'NO NAME'}</div>
+            <div style="font-size: 16pt; font-weight:600; font-family: 'Dosis', sans-serif; width: 80%; overflow-wrap: break-word;">${this.cardname || 'No Name'}</div>
 
             <div style="margin-left: 2rem;">
             <ul>
