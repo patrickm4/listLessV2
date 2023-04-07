@@ -5,15 +5,18 @@
       <button class="clear-drop-btn" @click="clearDrop">Clear Drop</button>
     </div>
     <input type="file" @change="drop" class="drop-input" ref="dropBox" />
-    <div class="image-box">
-    </div>
+    <!-- <div class="image-box">
+    </div> -->
     <Name 
       v-if="cardStore.cardName && cardStore.cardName !== 'No Card Selected'"
     />
 
     <br />
+    <br />
 
-    <div id="research-link-box"></div>
+    <EbayPrices
+      v-if="cardStore.cardName && cardStore.cardName !== 'No Card Selected'"
+    />
 
     <br />
     <br />
@@ -29,6 +32,7 @@
 <script>
 import Description from '../components/description.vue'
 import Name from '../components/name.vue'
+import EbayPrices from '../components/ebayPrices.vue'
 import { useCardStore } from '../stores/card.ts'
 
 export default {
@@ -45,7 +49,8 @@ export default {
   },
   components: {
     Description,
-    Name
+    Name,
+    EbayPrices
   },
   methods: {
     drop (e) {
