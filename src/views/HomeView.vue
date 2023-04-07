@@ -1,19 +1,16 @@
 <template>
     <h2>ListLessV2</h2>
-    <h3>Drag and drop card</h3>
-    <button @click="clearDrop">Clear Drop</button>
+    <div class="drop-top-bar">
+      <h3>Drag and drop card</h3>
+      <button class="clear-drop-btn" @click="clearDrop">Clear Drop</button>
+    </div>
     <input type="file" @change="drop" class="drop-input" ref="dropBox" />
     <div class="image-box">
     </div>
-    <div class="filename"></div>
-    <div>
-      <button id="copy-filename">Copy</button>
-      <button id="generate-btn">Force Generate</button>
-      <input type="radio" id="pokemon" name="card-type" value="poke" checked>
-      <label for="pokemon">Poke</label>
-      <input type="radio" id="yugioh" name="card-type" value="yugi">
-      <label for="yugioh">Yugi</label>
-    </div>
+    <Name 
+      v-if="cardName"  
+      :name="cardName"
+    />
 
     <br />
 
@@ -32,6 +29,7 @@
 
 <script>
 import Description from '../components/description.vue'
+import Name from '../components/name.vue'
 
 export default {
   data () {
@@ -40,25 +38,37 @@ export default {
     }
   },
   components: {
-    Description
+    Description,
+    Name
   },
   methods: {
     drop (e) {
       this.cardName = ''
-      setTimeout(() => {
+      setTimeout(() => {  
         const filePath = e.target.value.split('\\')
-        const file = filePath[filePath.length - 1]
-        this.cardName = file
+        // change the + sign in name to / because cant have / in filenames in windows
+        const file = filePath[filePath.length - 1].replace(/\+/, "/")
+
+
+        this.cardName = file.split('.')[0] // split the extension
       },1)
     },
     clearDrop () {  
       this.$refs.dropBox.value = ''
+      this.cardName = ''
     }
   }
 }
 </script>
 
 <style>
+.drop-top-bar {
+  display:flex;
+  margin-bottom: 1rem;
+}
+.clear-drop-btn {
+  margin-left: 1rem;
+}
 .drop-input {
   width:100%; 
   height: 10rem;
