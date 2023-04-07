@@ -48,13 +48,14 @@ export default {
 
                 name = name.join(' ')
 
-                // ebaySearchQuery = `${name} ${num}/${total}`
+                this.cardStore.setEbaySearchQuery(`${name} ${num}/${total}`)
 
+                this.cardStore.selectCard(`${name} ${num}/${total}`)
             } else {
-                regenName = `${listName} Pokemon TCG`
-                // genEbaySite()
-                filename.innerText = regenName
+                this.cardStore.selectCard(`${this.cardStore.cardName} Pokemon TCG`)
             }
+
+            this.$emit('incrementKey')
         }
     }
 }

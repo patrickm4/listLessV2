@@ -9,6 +9,7 @@
     </div> -->
     <Name 
       v-if="cardStore.cardName && cardStore.cardName !== 'No Card Selected'"
+      @incrementKey="increaseKeyCount()"
     />
 
     <br />
@@ -57,7 +58,7 @@ export default {
       this.cardName = ''
       setTimeout(() => {  
         // to remount description because of card name update issues
-        this.keyCount++
+        this.increaseKeyCount()
         const filePath = e.target.value.split('\\')
         // change the + sign in name to / because cant have / in filenames in windows
         const file = filePath[filePath.length - 1].replace(/\+/, "/")
@@ -70,6 +71,10 @@ export default {
     clearDrop () {  
       this.$refs.dropBox.value = ''
       this.cardName = ''
+    },
+    increaseKeyCount () {
+      // to remount description because of card name update issues
+      this.keyCount++
     }
   }
 }

@@ -14,7 +14,7 @@ export default {
     computed: {
         link () {
             // TODO only have the name and serial numbers
-            const searchQ = this.cardStore.cardName
+            const searchQ = this.cardStore.ebaySearchQuery
             return `https://www.ebay.ca/sch/i.html?_from=R40&_nkw=${encodeURIComponent(searchQ)}&_sacat=0&rt=nc&LH_Sold=1&LH_Complete=1`
         }
     }
