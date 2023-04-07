@@ -8,8 +8,7 @@
     <div class="image-box">
     </div>
     <Name 
-      v-if="cardName"  
-      :name="cardName"
+      v-if="cardStore.cardName && cardStore.cardName !== 'No Card Selected'"
     />
 
     <br />
@@ -20,8 +19,8 @@
     <br />
     
     <Description 
-      v-if="cardName"
-      :cardname="cardName"
+      v-if="cardStore.cardName && cardStore.cardName !== 'No Card Selected'"
+      :key="keyCount"
     />
 
     <div id="name-btns"></div>
@@ -30,11 +29,18 @@
 <script>
 import Description from '../components/description.vue'
 import Name from '../components/name.vue'
+import { useCardStore } from '../stores/card.ts'
 
 export default {
+  setup() {
+    const cardStore = useCardStore()
+
+    return { cardStore }
+  },
   data () {
     return {
-      cardName: ''
+      cardName: '',
+      keyCount: 0
     }
   },
   components: {
@@ -45,12 +51,15 @@ export default {
     drop (e) {
       this.cardName = ''
       setTimeout(() => {  
+        // to remount description because of card name update issues
+        this.keyCount++
         const filePath = e.target.value.split('\\')
         // change the + sign in name to / because cant have / in filenames in windows
         const file = filePath[filePath.length - 1].replace(/\+/, "/")
 
 
         this.cardName = file.split('.')[0] // split the extension
+        this.cardStore.selectCard(this.cardName)
       },1)
     },
     clearDrop () {  

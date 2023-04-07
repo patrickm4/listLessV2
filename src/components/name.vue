@@ -1,17 +1,20 @@
 <template>
-    <div class="filename">{{ name }}</div>
+    <div class="filename">{{ cardStore.cardName }}</div>
     <button id="copy-filename">Copy</button>
 </template>
 
 <script>
+import { useCardStore } from '../stores/card.ts'
 
 export default {
-    props: [
-        'name'
-    ],
+    setup() {
+        const cardStore = useCardStore()
+
+        return { cardStore }
+    },
     computed: {
         isPoke () {
-            return this.name.toLowerCase().split('').includes('/')
+            return this.cardStore.cardName.toLowerCase().split('').includes('/')
         },
         isYugi () {
             return !this.isPoke
@@ -20,7 +23,7 @@ export default {
     mounted () {
         //handle the name
         if (this.isPoke) {
-            const nameSplit = this.name.split(' ')
+            const nameSplit = this.cardStore.cardName.split(' ')
 
             // if its not an old card
             if (!nameSplit.includes('Set') && !nameSplit.includes('set')) {

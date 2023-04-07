@@ -9,11 +9,14 @@
 </template>
 
 <script>
+import { useCardStore } from '../stores/card.ts'
 
 export default {
-    props: [
-        'cardname'
-    ],
+    setup() {
+        const cardStore = useCardStore()
+
+        return { cardStore }
+    },
     data () {
         return {
             desc: `
@@ -22,7 +25,7 @@ export default {
 
 
             <div style="display:flex; justify-content: center; align-items: center; background-color: rgba(0,0,0,0.175); padding: 10px 15px;">
-            <div style="font-size: 16pt; font-weight:600; font-family: 'Dosis', sans-serif; width: 80%; overflow-wrap: break-word;">${this.cardname || 'No Name'}</div>
+            <div style="font-size: 16pt; font-weight:600; font-family: 'Dosis', sans-serif; width: 80%; overflow-wrap: break-word;">${this.cardStore.cardName}</div>
 
             <div style="margin-left: 2rem;">
             <ul>
@@ -59,5 +62,12 @@ export default {
 }
 .copy-btn {
     margin-left: 1rem;
+}
+textarea {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    width: 100%;
 }
 </style>
