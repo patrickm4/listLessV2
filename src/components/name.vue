@@ -1,6 +1,6 @@
 <template>
     <div class="filename">{{ cardStore.cardName }}</div>
-    <button id="copy-filename">Copy</button>
+    <button id="copy-filename" @click="copyName()">Copy</button>
 </template>
 
 <script>
@@ -22,6 +22,16 @@ export default {
         },
         isYugi () {
             return !this.isPoke
+        }
+    },
+    methods: {
+        async copyName() {
+            try {
+                await navigator.clipboard.writeText(this.cardStore.cardName);
+                alert('Copied');
+            } catch($e) {
+                alert('Cannot copy');
+            }
         }
     },
     mounted () {
@@ -54,13 +64,16 @@ export default {
 
                 this.cardStore.setEbaySearchQuery(`${name} ${num}/${total}`)
 
-                pokemon.card.all({ q: `name:${name} number:${num} set.total:${total}` })
+                // pokemon.card.all({ q: `name:${name} number:${num} set.total:${total}` })
+                pokemon.card.all({ q: `number:${num} set.total:${total}` })
                     .then(result => {
                         // console.log("check res", result)
 
                         if (result.length) {
                             if (result.length > 1) {
-                                console.warn("More than 1 card matched! Accept  ing the first card")
+                                console.warn("More than 1 card matched! Accepting the first card")
+
+                                console.log(result)
                             }
 
                             this.cardStore.selectCard(`${result[0].name} ${result[0].number}/${result[0].set.total} ${result[0].rarity} ${result[0].set.name} Set Pokemon TCG`)
