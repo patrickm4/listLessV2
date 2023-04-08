@@ -64,6 +64,8 @@ export default {
                             }
 
                             this.cardStore.selectCard(`${result[0].name} ${result[0].number}/${result[0].set.total} ${result[0].rarity} ${result[0].set.name} Set Pokemon TCG`)
+
+                            this.$emit('incrementKey')
                         } else {
                             console.log("No card found")
                         }
