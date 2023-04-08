@@ -5,6 +5,10 @@
 
 <script>
 import { useCardStore } from '../stores/card.ts'
+import pokemon from 'pokemontcgsdk'
+import config from '../../config.js'
+
+pokemon.configure({apiKey: config.pokeApiKey})
 
 export default {
     setup() {
@@ -35,14 +39,14 @@ export default {
 
                 for (const e of nameSplitCopy) {
                     if (e.includes('/')) {
-                    let x = e.split('/');
-                    num = Number(x[0]);
-                    total = Number(x[1]) ;
+                        let x = e.split('/');
+                        num = Number(x[0]);
+                        total = Number(x[1]) ;
                     } else {
-                    // we dont want the multi rename parenthesis if it has it
-                    if (!e.includes('(')) {
-                        name.push(e)
-                    }
+                        // we dont want the multi rename parenthesis if it has it
+                        if (!e.includes('(')) {
+                            name.push(e)
+                        }
                     }
                 }
 
@@ -50,13 +54,28 @@ export default {
 
                 this.cardStore.setEbaySearchQuery(`${name} ${num}/${total}`)
 
-                this.cardStore.selectCard(`${name} ${num}/${total}`)
+                pokemon.card.all({ q: `name:${name} number:${num} set.total:${total}` })
+                    .then(result => {
+                        // console.log("check res", result)
+
+                        if (result.length) {
+                            if (result.length > 1) {
+                                console.warn("More than 1 card matched! Accept  ing the first card")
+                            }
+
+                            this.cardStore.selectCard(`${result[0].name} ${result[0].number}/${result[0].set.total} ${result[0].rarity} ${result[0].set.name} Set Pokemon TCG`)
+                        } else {
+                            console.log("No card found")
+                        }
+                    })
+
             } else {
                 this.cardStore.selectCard(`${this.cardStore.cardName} Pokemon TCG`)
             }
 
-            this.$emit('incrementKey')
         }
+
+        this.$emit('incrementKey')
     }
 }
 </script>
