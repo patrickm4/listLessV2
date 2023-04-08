@@ -1,6 +1,11 @@
 <template>
-    <div class="filename">{{ cardStore.cardName }}</div>
-    <button id="copy-filename" @click="copyName()">Copy</button>
+    <div v-if="multiResults.length > 0">
+        <div v-for="r in multiResults"></div>
+    </div>
+    <template v-else>
+        <div class="filename">{{ cardStore.cardName }}</div>
+        <button id="copy-filename" @click="copyName()">Copy</button>
+    </template>
 </template>
 
 <script>
@@ -15,6 +20,11 @@ export default {
         const cardStore = useCardStore()
 
         return { cardStore }
+    },
+    data () {
+        return {
+            multiResults: []
+        }
     },
     computed: {
         isPoke () {
@@ -64,21 +74,27 @@ export default {
 
                 this.cardStore.setEbaySearchQuery(`${name} ${num}/${total}`)
 
-                // pokemon.card.all({ q: `name:${name} number:${num} set.total:${total}` })
-                pokemon.card.all({ q: `number:${num} set.total:${total}` })
+                const nameSplitLength = name.split(' ').length
+
+                // pokemon.card.all({ q: `number:${num} set.total:${total}` })
+                pokemon.card.all({ q: `name:${nameSplitLength === 1 ? name : `"${name}"`} number:${num} set.total:${total}` })
                     .then(result => {
                         // console.log("check res", result)
 
                         if (result.length) {
                             if (result.length > 1) {
-                                console.warn("More than 1 card matched! Accepting the first card")
+                                console.warn("More than 1 card matched!")
+
+                                this.multiResults = result
 
                                 console.log(result)
+                            } else {
+                                this.cardStore.selectCard(`${result[0].name} ${result[0].number}/${result[0].set.total} ${result[0].rarity} ${result[0].set.name} Set Pokemon TCG`)
+
+                                this.$emit('incrementKey')
                             }
 
-                            this.cardStore.selectCard(`${result[0].name} ${result[0].number}/${result[0].set.total} ${result[0].rarity} ${result[0].set.name} Set Pokemon TCG`)
 
-                            this.$emit('incrementKey')
                         } else {
                             console.log("No card found")
                         }
