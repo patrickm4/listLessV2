@@ -37,13 +37,11 @@ export default {
     watch: {
         'cardStore.cardName' (newVal, oldVal) {
             console.log("cardName Changed!")
-            this.nameHandle()
+            // this.generateEbayLink()
+            //TODO better architect this so we can generate ebay link on card change, maybe do name manipulation in store?
         }
     },
     methods: {
-        test () {
-            console.log("YAAW")
-        },
         async copyName() {
             try {
                 await navigator.clipboard.writeText(this.cardStore.cardName);
@@ -51,6 +49,9 @@ export default {
             } catch($e) {
                 alert('Cannot copy');
             }
+        },
+        generateEbayLink (name, num, total) {
+            this.cardStore.setEbaySearchQuery(`${name} ${num}/${total}`)
         },
         nameHandle () {
             if (this.isPoke) {
@@ -79,8 +80,7 @@ export default {
 
                     name = name.join(' ')
 
-                    console.log("yeeet", `${name} ${num}/${total}`)
-
+                    // this.generateEbayLink()
                     this.cardStore.setEbaySearchQuery(`${name} ${num}/${total}`)
 
                     const nameSplitLength = name.split(' ').length
