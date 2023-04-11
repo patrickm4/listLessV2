@@ -46,7 +46,7 @@ export default {
         async copyURL() {
             try {
                 await navigator.clipboard.writeText(this.desc);
-                alert('Copied');
+                console.log("copied description")
             } catch($e) {
                 alert('Cannot copy');
             }
