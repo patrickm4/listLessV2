@@ -8,7 +8,7 @@
     <!-- <div class="image-box">
     </div> -->
     <Name 
-      v-if="cardStore.cardName && cardStore.cardName !== 'No Card Selected'"
+      v-if="cardStore.cardName"
       @incrementKey="increaseKeyCount()"
     />
 
@@ -16,14 +16,14 @@
     <br />
 
     <EbayPrices
-      v-if="cardStore.cardName && cardStore.cardName !== 'No Card Selected'"
+      v-if="cardStore.ebaySearchQuery"
     />
 
     <br />
     <br />
     
     <Description 
-      v-if="cardStore.cardName && cardStore.cardName !== 'No Card Selected'"
+      v-if="cardStore.cardName"
       :key="keyCount"
     />
 
@@ -53,6 +53,11 @@ export default {
     Name,
     EbayPrices
   },
+  watch: {
+      'cardStore.cardName' (newVal, oldVal) {
+          this.increaseKeyCount()
+      }
+  },
   methods: {
     drop (e) {
       this.cardName = ''
@@ -65,7 +70,7 @@ export default {
 
 
         this.cardName = file.split('.')[0] // split the extension
-        this.cardStore.selectCard(this.cardName)
+        this.cardStore.adjustCardName(this.cardName)
       },1)
     },
     clearDrop () {  
