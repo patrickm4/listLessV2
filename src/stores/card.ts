@@ -82,6 +82,18 @@ export const useCardStore = defineStore('card', {
               this.selectCard(`${this.cardName} Pokemon TCG`)
               this.setHasFoundCard(false)
           }
+        } else {
+          //yugioh
+
+          //remove multirename parenthesis
+          // const cardNameSplit = cardName.split(" ")
+          // const indexOfBracket = cardNameSplit.findIndex((x: string) => x.includes('('))
+          // const name = cardNameSplit.splice(indexOfBracket, 1).join(' ')
+
+          // this.selectCard(`${name} Yugioh TCG`)
+          // this.setEbaySearchQuery(name)
+          this.selectCard(`${cardName} Yugioh TCG`)
+          this.setEbaySearchQuery(cardName)
         }
       },
       setEbaySearchQuery (query: any) {
