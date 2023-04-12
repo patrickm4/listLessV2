@@ -8,7 +8,8 @@ export const useCardStore = defineStore('card', {
     state: () => ({ 
         cardName: '',
         ebaySearchQuery: '',
-        multiCardResults: []
+        multiCardResults: [],
+        hasFoundCard: true
     }),
     actions: {
       selectCard (name: string) {
@@ -16,6 +17,9 @@ export const useCardStore = defineStore('card', {
       },
       selectMultiCardResults (cards: any) {
         this.multiCardResults = cards;
+      },
+      setHasFoundCard (found: boolean) {
+        this.hasFoundCard = found
       },
       adjustCardName (cardName: any) {
         const isPoke = cardName.toLowerCase().split('').includes('/')
@@ -67,14 +71,16 @@ export const useCardStore = defineStore('card', {
                             this.selectCard(`${result[0].name} ${result[0].number}/${result[0].set.total} ${result[0].rarity} ${result[0].set.name} Set Pokemon TCG`)
                         }
 
-
+                        this.setHasFoundCard(true)
                     } else {
                         this.selectCard(nameWithSet)
+                        this.setHasFoundCard(false)
                         console.log("No card found")
                     }
                 })
           } else {
               this.selectCard(`${this.cardName} Pokemon TCG`)
+              this.setHasFoundCard(false)
           }
         }
       },

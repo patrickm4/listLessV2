@@ -59,6 +59,7 @@ export default {
 .desc-top-bar {
     display:flex;
     margin-bottom: 1rem;
+    margin-top: 1rem;
 }
 .copy-btn {
     margin-left: 1rem;

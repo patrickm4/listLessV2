@@ -1,5 +1,7 @@
 <template>
-    <a :href="link" target="_blank">Ebay Sold Prices</a>
+    <div class="ebay-link-box">
+        <a :href="link" target="_blank">Ebay Sold Prices</a>
+    </div>
 </template>
 
 <script>
@@ -20,3 +22,9 @@ export default {
     }
 }
 </script>
+
+<style>
+.ebay-link-box {
+    margin-top: 1rem;
+}
+</style>

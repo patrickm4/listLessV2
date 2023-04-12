@@ -12,15 +12,9 @@
       @incrementKey="increaseKeyCount()"
     />
 
-    <br />
-    <br />
-
     <EbayPrices
       v-if="cardStore.ebaySearchQuery"
     />
-
-    <br />
-    <br />
     
     <Description 
       v-if="cardStore.cardName"
