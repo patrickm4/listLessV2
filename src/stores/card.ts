@@ -86,14 +86,16 @@ export const useCardStore = defineStore('card', {
           //yugioh
 
           //remove multirename parenthesis
-          // const cardNameSplit = cardName.split(" ")
-          // const indexOfBracket = cardNameSplit.findIndex((x: string) => x.includes('('))
-          // const name = cardNameSplit.splice(indexOfBracket, 1).join(' ')
+          const cardNameSplit = cardName.split(" ")
+          console.log("cardNameSplit", cardNameSplit)
+          const indexOfBracket = cardNameSplit.findIndex((x: string) => x.includes('('))
+          console.log("indexOfBracket", indexOfBracket)
+          cardNameSplit.splice(indexOfBracket, 1)
+          const name = cardNameSplit.join(' ')
+          console.log("name", name)
 
-          // this.selectCard(`${name} Yugioh TCG`)
-          // this.setEbaySearchQuery(name)
-          this.selectCard(`${cardName} Yugioh TCG`)
-          this.setEbaySearchQuery(cardName)
+          this.selectCard(`${name} Yugioh TCG`)
+          this.setEbaySearchQuery(name)
         }
       },
       setEbaySearchQuery (query: any) {
