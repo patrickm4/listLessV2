@@ -15,20 +15,22 @@
             @click="changeName(d)"
         >{{ d }}</button>
         <button @click="removeDetail()">Delete Last Detail</button>
+        <CardSetSelect />
     </div>
 </template>
 
 <script>
 import { useCardStore } from '../stores/card.ts'
-
-// TODO add all pokemon sets with pictures in a drop down that is searchable
-// maybe store the sets so it only fetches once
+import CardSetSelect from '../components/cardSetSelect.vue'
 
 export default {
     setup() {
         const cardStore = useCardStore()
 
         return { cardStore }
+    },
+    components: {
+        CardSetSelect
     },
     data () {
         return {
