@@ -29,12 +29,14 @@ import Description from '../components/description.vue'
 import Name from '../components/name.vue'
 import EbayPrices from '../components/ebayPrices.vue'
 import { useCardStore } from '../stores/card.ts'
+import { usePokemonSetsStore } from '../stores/pokemonSets.ts'
 
 export default {
   setup() {
     const cardStore = useCardStore()
+    const pokemonSetsStore = usePokemonSetsStore()
 
-    return { cardStore }
+    return { cardStore, pokemonSetsStore }
   },
   data () {
     return {
