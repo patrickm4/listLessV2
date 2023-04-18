@@ -1,33 +1,31 @@
 <template>
-    <!-- maybe use vue-select? -->
-    <select v-model="set">
-        <!-- <option v-for="p in pokemonSetsStore.sets">
-            {{ p.name }}
-            <img 
-                :src="p.images.symbol" 
-                :alt="p.name"
-                height="50px"
-                width="50px"
+    <!-- @blur="closeDropdown" -->
+    <div class="dropdown-container">
+        <input 
+            placeholder="Select Pokemon Set"
+            v-model="set"
+            @focus="openDropdown"
+            type="text"
+            size="50"
             />
-        </option> -->
-        <!-- <option 
-            v-for="p in pokemonSetsStore.sets"
-            :style="{backgroundImage: `url('${p.images.symbol}')`}"
+        <div 
+            v-if="isSelectActive"
+            class="dropdown-list"    
         >
-            {{ p.name }}
-        </option> -->
-        <template v-for="p in pokemonSetsStore.sets">
-            <option>
+            <div 
+                v-for="p in pokemonSetsStore.sets"
+                class="dropdown-item"
+            >
                 {{ p.name }}
-            </option>
-            <img 
-                :src="p.images.symbol" 
-                :alt="p.name"
-                height="50px"
-                width="50px"
-            />
-        </template>
-    </select>
+                <img 
+                    :src="p.images.symbol" 
+                    :alt="p.name"
+                    height="25"
+                    width="25"
+                />
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -41,8 +39,41 @@ export default {
     },
     data () {
         return {
-            set: ''
+            set: '',
+            isSelectActive: false
+        }
+    },
+    methods: {
+        openDropdown () {
+            this.isSelectActive = true
+        },
+        closeDropdown () {
+            this.isSelectActive = false
         }
     }
 }
 </script>
+
+<style>
+.dropdown-list {
+    position: absolute;
+    left: 0;
+    top: 25px;
+    height: 550px;
+    width: auto;
+    background-color: azure;
+    border: 1px solid rgb(65, 65, 65);
+    color: #000;
+    z-index: 99;
+    overflow: auto;
+}
+.dropdown-item {
+    display: flex;
+}
+.dropdown-item:hover {
+    background-color:cadetblue;
+}
+.dropdown-container {
+    position: relative
+}
+</style>

@@ -3,6 +3,8 @@
     <div class="drop-top-bar">
       <h3>Drag and drop card</h3>
       <button class="clear-drop-btn" @click="clearDrop">Clear Drop</button>
+      <!-- cardselect component just for testing -->
+      <CardSetSelect />
     </div>
     <input type="file" @change="drop" class="drop-input" ref="dropBox" />
     <!-- <div class="image-box">
@@ -29,6 +31,7 @@ import Description from '../components/description.vue'
 import Name from '../components/name.vue'
 import EbayPrices from '../components/ebayPrices.vue'
 import { useCardStore } from '../stores/card.ts'
+import CardSetSelect from '../components/cardSetSelect.vue'
 
 export default {
   setup() {
@@ -45,7 +48,8 @@ export default {
   components: {
     Description,
     Name,
-    EbayPrices
+    EbayPrices,
+    CardSetSelect
   },
   watch: {
       'cardStore.cardName' (newVal, oldVal) {
