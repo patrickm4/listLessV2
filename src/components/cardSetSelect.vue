@@ -1,13 +1,15 @@
 <template>
-    <!-- @blur="closeDropdown" -->
+    <!-- TODO add filtering -->
     <div class="dropdown-container">
         <input 
             placeholder="Select Pokemon Set"
             v-model="set"
             @focus="openDropdown"
+            @blur="closeDropdown($event)"
             type="text"
-            size="50"
+            size="30"
             />
+            <!-- TODO add icon for dropdown open and close -->
         <div 
             v-if="isSelectActive"
             class="dropdown-list"    
@@ -15,14 +17,15 @@
             <div 
                 v-for="p in pokemonSetsStore.sets"
                 class="dropdown-item"
+                @mousedown="selectSet(p)"
             >
-                {{ p.name }}
                 <img 
                     :src="p.images.symbol" 
                     :alt="p.name"
                     height="25"
                     width="25"
                 />
+                {{ p.name }}
             </div>
         </div>
     </div>
@@ -40,15 +43,27 @@ export default {
     data () {
         return {
             set: '',
-            isSelectActive: false
+            isSelectActive: false,
+            isSelecting: false
         }
     },
     methods: {
         openDropdown () {
             this.isSelectActive = true
         },
-        closeDropdown () {
-            this.isSelectActive = false
+        closeDropdown (event) {
+            if (!this.isSelecting) {
+                this.isSelectActive = false
+            }
+        },
+        selectSet (set) {
+            this.isSelecting = true
+            this.set = set.name
+            this.isSelecting = false
+            this.addSetUp()
+        },
+        addSetUp () {
+            this.$emit('addSet', this.set)
         }
     }
 }
@@ -59,7 +74,7 @@ export default {
     position: absolute;
     left: 0;
     top: 25px;
-    height: 550px;
+    height: 350px;
     width: auto;
     background-color: azure;
     border: 1px solid rgb(65, 65, 65);
@@ -74,6 +89,7 @@ export default {
     background-color:cadetblue;
 }
 .dropdown-container {
+    margin-top: 0.5rem;
     position: relative
 }
 </style>

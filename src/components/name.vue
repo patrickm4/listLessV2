@@ -15,7 +15,7 @@
             @click="changeName(d)"
         >{{ d }}</button>
         <button @click="removeDetail()">Delete Last Detail</button>
-        <CardSetSelect />
+        <CardSetSelect @addSet="appendSet"/>
     </div>
 </template>
 
@@ -39,7 +39,8 @@ export default {
                 'Reverse Holo',
                 'Uncommon',
                 'Common',
-                'Rare'
+                'Rare',
+                'Pokemon TCG'
             ]
         }
     },
@@ -66,6 +67,11 @@ export default {
         changeName (detail) {
             //append to existing name
             const name = `${this.cardStore.cardName} ${detail}`
+
+            this.cardStore.selectCard(name)
+        },
+        appendSet (setName) {
+            const name = `${this.cardStore.cardName} ${setName} Set`
 
             this.cardStore.selectCard(name)
         },
