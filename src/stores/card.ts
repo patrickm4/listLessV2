@@ -77,6 +77,13 @@ export const useCardStore = defineStore('card', {
                     }
                 })
           } else {
+              // only ebay search name and set total
+              const slashIndex = nameSplit.findIndex(w => w.includes('/'))
+
+              const nameToSearch = nameSplit.slice(0, slashIndex + 1)
+
+              this.setEbaySearchQuery(nameToSearch.join(' '))
+
               this.selectCard(`${cardName} Pokemon TCG`)
               this.setHasFoundCard(false)
           }
