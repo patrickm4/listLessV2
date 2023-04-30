@@ -53,8 +53,6 @@ export const useCardStore = defineStore('card', {
             this.setEbaySearchQuery(nameWithSet)
 
             const nameSplitLength = joinedName.split(' ').length
-
-            // pokemon.card.all({ q: `number:${num} set.total:${total}` })
             pokemon.card.all({ q: `name:${nameSplitLength === 1 ? joinedName : `"${joinedName}"`} number:${num} set.total:${total}` })
                 .then((result: any) => {
                     console.log("check res", result)
@@ -79,7 +77,7 @@ export const useCardStore = defineStore('card', {
                     }
                 })
           } else {
-              this.selectCard(`${this.cardName} Pokemon TCG`)
+              this.selectCard(`${cardName} Pokemon TCG`)
               this.setHasFoundCard(false)
           }
         } else {
