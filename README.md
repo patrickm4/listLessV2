@@ -1,6 +1,22 @@
 # listLessV2
 
-This template should help get you started developing with Vue 3 in Vite.
+A web app to help list collectible trading cards faster on ebay to sell.
+
+Version 1 was created with Electron for file system access, but I was always drag and dropping files anyways. So to create features faster, I migrated to a web app with Vue.
+
+### Built with
+
+- Vue 3
+- Pinia
+
+### Roadmap
+
+- [x] Migrate code from Listless v1
+- [ ] Find and Incorporate a YuGiOh API
+- [ ] Make a fetch request to ebay to create listings
+- [ ] Web scrape or GET prices from sold listings on ebay
+- [ ] Calculate a selling price
+- [ ] Queue/Schedule listings
 
 ## Recommended IDE Setup
 
