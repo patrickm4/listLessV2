@@ -15,7 +15,7 @@
             class="dropdown-list"    
         >
             <div 
-                v-for="p in pokemonSetsStore.sets"
+                v-for="p in processedList"
                 class="dropdown-item"
                 @mousedown="selectSet(p)"
             >
@@ -45,6 +45,13 @@ export default {
             set: '',
             isSelectActive: false,
             isSelecting: false
+        }
+    },
+    computed: {
+        processedList () {
+            return this.pokemonSetsStore.sets.filter(set => {
+                return set.name.toLowerCase().includes(this.set.toLowerCase())
+            })
         }
     },
     methods: {
