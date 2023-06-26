@@ -4,7 +4,8 @@
     </div>
     <template v-else>
         <div class="filename">{{ cardStore.cardName }}</div>
-        <button id="copy-filename" @click="copyName()">Copy Name</button>
+        <button class="copy-filename" @click="copyName">Copy Name</button>
+        <button class="copy-filename" @click="copyNameDescEbay">Copy Name and Desc, Open eBay link</button>
     </template>
     <div 
         v-if="!cardStore.hasFoundCard"
@@ -61,6 +62,19 @@ export default {
                 alert('Cannot copy');
             }
         },
+        async copyNameDescEbay() {
+            try {
+                await navigator.clipboard.writeText(this.cardStore.cardName);
+
+                await navigator.clipboard.writeText(this.cardStore.description);
+
+                window.open(this.cardStore.ebayLink, '_blank')
+
+                console.log("copied name, desc and open ebay link")
+            } catch($e) {
+                alert('Cannot copy');
+            }
+        },
         // hasDetail (detail) {
         //     return this.cardStore.cardName.split(' ').includes(detail)
         // },
@@ -81,7 +95,6 @@ export default {
             name.pop()
 
             this.cardStore.selectCard(name.join(' '))
-
         }
     }
 }
@@ -91,7 +104,10 @@ export default {
 .filename {
     font-size: 18pt;
 }
-#copy-filename, .filename, .card-detail-append-bar {
+.copy-filename, .filename, .card-detail-append-bar {
     margin-top: 1rem;
+}
+.copy-filename {
+    margin-left: 1rem;
 }
 </style>
