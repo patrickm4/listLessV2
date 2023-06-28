@@ -71,19 +71,6 @@ export default {
                 alert('Cannot copy');
             }
         },
-        async copyNameDescEbay() {
-            try {
-                await navigator.clipboard.writeText(this.cardStore.cardName);
-
-                await navigator.clipboard.writeText(this.cardStore.description);
-
-                window.open(this.cardStore.ebayLink, '_blank')
-
-                console.log("copied name, desc and open ebay link")
-            } catch($e) {
-                alert('Cannot copy');
-            }
-        },
         // hasDetail (detail) {
         //     return this.cardStore.cardName.split(' ').includes(detail)
         // },

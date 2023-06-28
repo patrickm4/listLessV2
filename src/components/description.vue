@@ -2,8 +2,9 @@
     <div class="desc-top-bar">
         <h3>Description HTML</h3>
         <button @click="copyURL" class="copy-btn">Copy Desc</button>
+        <button @click="copyNameDescEbay" class="copy-n-more-btn">Copy Desc and Open Ebay Prices</button>
     </div>
-    <textarea rows="7" cols="150" v-model="desc">
+    <textarea rows="10" cols="150" v-model="desc">
     </textarea>
     <div v-html="desc"></div>
 </template>
@@ -50,7 +51,18 @@ export default {
             } catch($e) {
                 alert('Cannot copy');
             }
-        }
+        },
+        async copyNameDescEbay() {
+            try {
+                await navigator.clipboard.writeText(this.cardStore.description);
+
+                window.open(this.cardStore.ebayLink, '_blank')
+
+                console.log("copied name, desc and open ebay link")
+            } catch($e) {
+                alert('Cannot copy');
+            }
+        },
     }
 }
 </script>
@@ -70,5 +82,8 @@ textarea {
     box-sizing: border-box;
 
     width: 100%;
+}
+.copy-n-more-btn {
+    margin-left: 1rem;
 }
 </style>
