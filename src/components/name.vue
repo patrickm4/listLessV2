@@ -5,19 +5,27 @@
     <template v-else>
         <div class="filename">{{ cardStore.cardName }}</div>
         <button class="copy-filename" @click="copyName">Copy Name</button>
-        <button class="copy-filename" @click="copyNameDescEbay">Copy Name and Desc, Open eBay link</button>
     </template>
-    <div 
-        v-if="!cardStore.hasFoundCard"
-        class="card-detail-append-bar"
-    >
-        <button 
-            v-for="d in cardDetails"
-            @click="changeName(d)"
-        >{{ d }}</button>
-        <button @click="removeDetail()">Delete Last Detail</button>
-        <CardSetSelect @addSet="appendSet"/>
+    <div class="add-name-container">
+        <div class="name-append-item">
+            <Label>PSA</Label>
+            <select 
+                v-model.number="psaGrade"
+                @change="changeName(`PSA ${psaGrade}`)"
+            >
+                <option v-for="grade in 10">{{ grade  }}</option>
+            </select>
+        </div>
+        <div>
+            <button 
+                v-for="d in cardDetails"
+                @click="changeName(d)"
+                class="name-append-item"
+            >{{ d }}</button>
+            <button @click="removeDetail()">Delete Last Detail</button>
+        </div>
     </div>
+    <CardSetSelect @addSet="appendSet"/>
 </template>
 
 <script>
@@ -35,6 +43,7 @@ export default {
     },
     data () {
         return {
+            psaGrade: 0,
             cardDetails: [
                 'Holo',
                 'Reverse Holo',
@@ -104,10 +113,21 @@ export default {
 .filename {
     font-size: 18pt;
 }
-.copy-filename, .filename, .card-detail-append-bar {
+.copy-filename, .filename, .add-name-container {
     margin-top: 1rem;
 }
 .copy-filename {
     margin-left: 1rem;
+}
+.add-name-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.name-append-item {
+    margin-right: 0.5rem;
+}
+.name-append-item > label {
+    margin-right: 0.25rem;
 }
 </style>
