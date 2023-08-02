@@ -63,7 +63,7 @@ export default {
         const file = filePath[filePath.length - 1].replace(/\+/, "/")
 
 
-        this.cardName = file.split('.')[0] // split the extension
+        this.cardName = file.split('.jpg')[0] // split the extension
         this.cardStore.adjustCardName(this.cardName)
       },1)
     },
